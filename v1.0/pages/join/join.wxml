@@ -1,0 +1,50 @@
+<!--logs.wxml-->
+<import src ="../component/textToast/textToast.wxml" />
+<view class="container {{isLoad && listdata && listdata.length>0? 'red-bg': ''}}" hidden='{{!isLoad}}' style="min-height:{{scrollH}}">
+  <!-- catchtouchmove="true" -->
+  <view class="nojoin" style="height:{{scrollH}}" wx:if="{{listdata.length==0 }}">
+    <image class="icon-nojoin" src="http://i2.dd-img.com/assets/image/1537329512-fb91c69b3b54f111-329w-334h.png"></image>
+    <text class="invitation">您还没有参加竞猜~快来参加吧</text>
+  </view>
+  <view wx:else class="lists">
+    <view class="hb-wrap">
+      <view class="hb-num"><text class="num">{{bonus}}</text><text class="rmb-unit">元</text></view>
+      <view class="btn submit-btn" bindtap="submitFn">提现</view>
+    </view>
+    <view class="join" wx:for="{{listdata}}" wx:for-item="item" wx:key="index">
+      <view class="unit" bindtap="jump" data-data="{{item}}">
+        <view class="list"> 
+          <view class="car-img-box">
+            <image class="car-img" src="{{item.img}}" mode="aspectFit"></image>  
+          </view>           
+          <text class="price">本期奖金：</text>
+          <text class="money">{{item.total_prize}}</text>
+          <view wx:if="{{ item.end < nowData}}">      
+            <!-- <image  class="icon-jss iconPic" src="http://i2.dd-img.com/assets/image/1537269436-7527c70a31b73442-70w-76h.png"></image> -->
+            <image  class="icon-jss iconPic" src="http://i2.dd-img.com/assets/image/1539072806-85fc522b3bfcfb0c-70w-76h.png"></image>
+          </view>
+          <view wx:elif="{{ item.start < nowData && item.end > nowData }}">    
+            <image  class="icon-jxz iconPic" src="http://i2.dd-img.com/assets/image/1537262321-b842ef802319b6ce-70w-76h.png"></image>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="weui-loadmore" hidden="{{isHideLoadMore}}">
+      <view class="weui-loading"></view>
+      <view class="weui-loadmore__tips">正在加载</view>
+    </view>
+  </view>
+
+</view>
+<!--授权弹窗-->
+<authorization-btn show="{{userShow}}" bindchangeStatus="changeStatus"></authorization-btn>
+<view class="pop-box hb-box" wx:if="{{hbShow}}" catchtouchmove='poptouchmove'>
+  <view class="rule-inner">
+    <view class="rule-text">请关注“电动邦服务号”公众号，在菜单中点击“猜车红包”领取奖金</view>
+    <button class="pop-box-btn close-pop-btn" bindtap='closeBoxFn'>确定</button>
+  </view>
+</view>
+<!-- 分享的canvas -->
+<!-- <view style="visibility:hidden;position:absolute;top:0;left:0">
+<canvas canvas-id="shareCanvas" style="width:375px;height:300px"></canvas>
+</view> -->

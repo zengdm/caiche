@@ -1,0 +1,8 @@
+{
+ "navigationBarTitleText": "我的钱包",
+ "usingComponents": {
+    "authorization-btn": "/pages/component/authorization/userInfo"
+  },
+  "enablePullDownRefresh": true,
+  "onReachBottomDistance": 150
+}

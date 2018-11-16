@@ -1,0 +1,196 @@
+<!--index.wxml-->
+<import src ="../component/textToast/textToast.wxml" />
+<view class="container {{!data ? 'yellowBg':''}}" hidden="{{!isLoad}}">
+  <view class="nomarl-activity" wx:if="{{data}}">
+    <view class="header">
+      <view class="cx-img-box" wx:if ="{{data.question && data.question.question_img}}" style="background:linear-gradient(to top, rgba(0,0,0,0.5), rgba(0,0,0,0) 42%) no-repeat, url({{data.question && data.question.question_img ? data.question.question_img : '' }}) no-repeat center center;background-size:100%;" data-src="{{data.question && data.question.question_img}}" bindtap='previewImage'>
+      </view>
+      <view class="hader-main-box">
+        <view class="cx-prize-box">
+          <view class="prize-num-text">
+            <text>本期奖金</text>
+            <view class="rule-tip index-icon" bindtap='showRuleBox'></view>
+          </view>
+          <text class="prize-num">{{data.activity_info && data.activity_info.total_prize ||  5000}}</text>
+        </view>
+        <view class="inviteBtn header-btn" bindtap='getShareShade'><text class="index-icon invite-icon"></text>邀请好友</view>
+        <view class="rankBtn header-btn"  bindtap='toRankPage'><text class="index-icon rank-icon"></text> 排行榜</view>
+        <view class="user-avatar-box" bindtap="userRecords">
+          <image wx:if="{{!(userInfo && userInfo.avatarUrl)}}" src="https://i1.dd-img.com/assets/image/1517466287-bb81d5d98c3824fd-512w-509h.png" mode='aspectFill' class="avatar"></image>
+          <open-data type="userAvatarUrl" wx:else></open-data>
+        </view>
+      </view>
+    </view>
+    <view class="main">
+      <view class="cx-text">本期竞猜车型可能是以下一款</view>
+      <view class="cx-options">
+        <block wx:for="{{data.question && data.question.options}}" wx:key="index">
+          <button class="cx-item btn {{ chosedId==item.option_id ? 'current-btn' : ''}} {{index==data.question.options.length-1 ? 'last-btn': ''}} {{(result && result.is_right===0 && result.option_id==item.option_id) || (data.user_is_right===0 &&  item.is_right_opt===1) ? 'correct-btn': ''}}"
+                  bindtap="choseCx" 
+                  data-id="{{item.option_id}}" 
+                  data-index= "{{index}}" 
+                  data-pserid ="{{item.cxid}}">
+              <text class="btn-text">{{index==0 ? 'A' : (index==1?  'B' : (index==2 ? 'C': (index==3 ? 'D': '')))}} {{ item.option_content}} </text>
+          </button>
+        </block>
+      </view>
+      <!--
+      立即参加竞猜 #ff5c4f
+      至少邀请一名好友才可以继续参加 #ff5c4f
+      继续参与下一期 #ff5c4f
+      回答正确为： 立即领奖
+      -->
+      <!--
+        展示的规则
+        用户已经参加猜车，展示已参加页面
+        本期奖金已经发放完毕，且当期没有结束的情况下，展示奖金发放完毕页面
+        如果是老用户显示再次参加页面
+        如果用户没有参加当期且当前活动未结束正常显示
+      -->
+      <!--(result && (result.is_right===0 || result.is_right===1))代表是选择了答案之后直接返回的结果-->
+      <!--user_is_right===0 || user_is_right===1 代表是选择了答案之后刷新页面还是该期活动时返回的结果-->
+      <view class="result-box" wx:if="{{ (result && (result.is_right===0 || result.is_right===1)) || (data.user_is_right===0 || data.user_is_right===1)}}">
+        <view class="result-correct" wx:if="{{ (result && result.is_right===1) || (data.user_is_right && data.user_is_right===1 && data.need_take_prize)}}">
+          <view class="result-title result-text">恭喜您，回答正确</view>
+          <view class="bonus-tip result-text">您瓜分到的奖金为:</view>
+          <view class="bonus-num result-text">{{result.money || data.prize_amount}}<text class="symbol">元</text></view>
+        </view>
+        <view class="result-error" wx:if="{{ result && result.is_right===0}}">
+          <view class="result-title result-text">很遗憾，回答错误</view>
+        </view>
+        <!-- user_is_right!='' 说明已参加-->
+        <view class="next-game" wx:if="{{data.user_is_right===0 || data.user_is_right===1 && data.activity_info}}">
+          <!--如果为已参加，第一个文案为 您已参加了本期竞猜-->
+          <!--如果为已结束，第一个文案为 本期奖金已发放完毕-->
+          <view class="result-text">您已参加了本期竞猜</view>
+          <view class="result-title result-text">下期开始倒计时</view>
+          <view class="result-title result-text timeDown">
+            <text class="number">{{timer.hour}}</text><text class="dot">:</text><text class="number">{{timer.minute}}</text><text class="dot">:</text><text class="number">{{timer.second}}</text>
+          </view>
+        </view>
+      </view>
+        <!--如果为再次参加，没有机会文案显示为 邀请好友，可继续参加-->
+        <!--如果本期活动已结束和本期活动已参加的文案为 随便逛一逛，跳到电动邦微信小程序-->
+      <block>
+        <!-- <button class="btn submit-btn join-btn" bindtap="submitFn" wx:if="{{can_join && !result}}"> -->
+        <!--目前后台的can_join有两种情况为false 没领钱和已经参加过当期不能参加-->
+        <block wx:if="{{data.can_join && !result}}">
+          <form report-submit="true" bindsubmit="formSubmit" >
+            <button class="btn submit-btn join-btn" bindtap="submitFn" formType="submit">
+              <text class="btn-text">立即参加竞猜</text>
+            </button>
+          </form>
+          <button class="btn submit-btn invite-btn" open-type='share' data-type="ask-help">
+            <text class="btn-text">向朋友求助</text>
+          </button> 
+        </block>
+        <!--猜错或者猜中已领取奖金还没到下一期-->
+        <button class="btn submit-btn" bindtap="submitFn" wx:if="{{data.user_is_right===0 || data.user_is_right===1 && data.activity_info}}">
+          <text class="btn-text">随便逛一逛</text>
+        </button>
+        <!--猜错直接出结果出现继续参与下一期-->
+        <button class="btn submit-btn" bindtap="submitFn" wx:if="{{result && result.is_right===0}}">
+          <text class="btn-text">继续参与下一期</text>
+        </button>
+        <!--猜中结果或者猜中了还没有邀请人-->
+        <button class="btn submit-btn" bindtap="submitFn" wx:if="{{(result && result.is_right===1) || data.user_is_right===1 && data.need_take_prize}}">
+          <text class="btn-text">立即领奖</text>
+        </button>
+      </block>
+    </view>
+    <!-- <view class="looks">
+      <view class="looks-title">正在围观的好友(5人)</view>
+        <view class="looks-list">
+        <view class="looks-item"><image src="" class="looks-avatar"></image></view>
+        <view class="looks-item"><image src="" class="looks-avatar"></image></view>
+        <view class="looks-item"><image src="" class="looks-avatar"></image></view>
+      </view>
+    </view> -->
+    <!--规则-->
+    <view class="pop-box rule-box" catchtouchmove='poptouchmove' hidden="{{!showRule}}">
+      <view class="rule-inner">
+        <view class="rule-title">看图猜车活动规则</view>
+        <view class="rule-text">1、竞猜每2小时一期，每期只能参加一次；</view>
+        <view class="rule-text">2、瓜分到的奖金为随机分配，奖金瓜分完则本期结束；</view>
+        <view class="rule-text">3、回答正确后，需邀请一名新好友帮您激活奖金；</view>
+        <view class="rule-text">4、瓜分到奖金后，将放在您的账户中，满100元可申请提现；</view>
+        <view class="rule-text">5、分享排行榜到群奖励1元，每个用户仅有一次机会；</view>
+        <!-- <form report-submit="true" bindsubmit="formSubmit">
+          <button formType="submit" class="pop-box-btn authorization-btn" open-type="getUserInfo" bindgetuserinfo="getUserInfo">猜猜看</button>
+        </form> -->
+          <button class="pop-box-btn" bindtap='closeRuleBox'>猜猜看</button>
+      </view>
+    </view>
+    <!--授权弹窗-->
+    <authorization-btn show="{{userShow}}" bindchangeStatus="changeStatus"></authorization-btn>
+    <!--领取红包弹窗-->
+    <view class="pop-box hb-box" wx:if="{{hbShow}}" catchtouchmove='poptouchmove'>
+      <view class="rule-inner">
+        <view class="rule-text">请关注“电动邦服务号”公众号，在菜单中点击“领奖”领取奖金</view>
+        <button class="pop-box-btn close-pop-btn" bindtap='closeBoxFn'>确定</button>
+      </view>
+    </view>
+  </view>
+  <view class="no-activity" wx:else>
+    <view class="result-title result-text no-activity-text">下期竞猜时间 10:00</view>
+    <button class="btn submit-btn white-bg-btn" bindtap="submitFn">
+      <text class="btn-text">随便逛一逛</text>
+    </button>
+  </view>
+</view>
+<template is="toast" data="{{...txtToast}}" />
+<view class='share-shade' hidden='{{shareShade}}' catchtouchmove='poptouchmove'>
+    <view class='shade-shade-box'>
+      <view class='shade-shade-box-top'>
+          <view class='shade-shade-box-friend'>
+            <button open-type="share" data-type="header_pop_share"></button>
+            <text>发送给朋友</text>
+          </view>
+          
+          <view class='shade-shade-box-save' bindtap='saveImgAction'>
+              <view></view>
+              <text>分享到朋友圈</text>
+          </view>
+       </view>
+       <view class='shade-shade-box-cancel' bindtap='shareCancel'>取消</view>
+    </view>
+</view>
+<view class="canvasBox">
+  <canvas canvas-id="shareCanvas" style="width:750px;height:1334px;visibility: hidden;"></canvas>
+</view>
+<!-- 10元新人弹窗出现情况1、没授权 2、没领取过 || data && isGift-->
+<view class='pop-box new-hb-box' wx:if ='{{ data && authorizationShow }}' catchtouchmove='poptouchmove'>
+  <view class='shade-packet'>
+    <form report-submit="true" bindsubmit="formSubmit">
+      <button formType="submit" wx:if="{{isGift===0}}" class="authorization-btn" bindtap='getNewHb'>收下了</button>
+      <button formType="submit" wx:else class="authorization-btn" open-type="getUserInfo" bindgetuserinfo="getUserInfo">收下了</button>
+    </form>
+  </view>
+</view>
+<!--点击答案跳转小程序提示-->
+<view class="pop-box skip-tip-box"  wx:if='{{showSkipTip}}' catchtouchmove='poptouchmove'>
+ <view class='click-shade-hint'>
+    <view class='click-shade-hint-title'>提示</view>
+    <view class='click-shade-hint-content'>点击答案会跳转到车型介绍页面,以便于您确定答案是否正确,关闭车型页面后,即可继续提交</view>
+    <!-- https://i2.dd-img.com/assets/image/1540781973-87762db76a4a6aec-437w-373h.png -->
+    <image  class='click-shade-hint-img' src='https://i2.dd-img.com/assets/image/1541751850-5d3871da3aafd1ab-437w-373h.jpg'></image>
+    <button bindtap='confirmShade'>确定</button>
+  </view>
+</view>
+<!--领取成功之后弹窗-->
+<view class="pop-box modal-panel" wx:if="{{showModal}}" catchtouchmove='poptouchmove'>
+  <view class="shadeBox"></view>
+  <view class="modal-main">
+    <!-- <view class="title"></view> -->
+    <view class="subtitle">{{modelSubTit}}</view>
+    <view class="btns">
+      <block wx:if="{{modal_share}}">
+         <button class="modal-btn btn-confirm" open-type="share" data-type="{{modleShareType}}">确定</button>
+      </block>
+      <block wx:else>
+        <button class="modal-btn btn-cancel" bindtap="btnCancel">取消</button>
+        <button class="modal-btn btn-confirm"  bindtap="openSetting">确定</button>
+      </block>
+    </view>
+  </view>
+</view>

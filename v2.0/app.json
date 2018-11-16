@@ -1,0 +1,16 @@
+{
+  "pages":[
+    "pages/index/index",
+    "pages/rangklist/rangklist",
+    "pages/bonus/bonus"
+  ],
+  "window":{
+    "backgroundTextStyle": "dark",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "WeChat",
+    "navigationBarTextStyle":"black"
+  },
+  "navigateToMiniProgramAppIdList": [
+    "wx08cd8cd9371fba0d"
+  ]
+}

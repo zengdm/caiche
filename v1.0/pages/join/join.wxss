@@ -1,0 +1,169 @@
+/* pages/join/join.wxss */
+.red-bg{ background: #ff504b;}
+.nojoin{
+  background:#f3f4f6;
+  overflow:hidden;
+  display: flex;
+  flex-direction:column;
+}
+.icon-nojoin{
+  width:329rpx;
+  height:334rpx;
+  margin:0 auto;
+  margin-top:100rpx;
+}
+.invitation{
+  font-size: 28rpx;
+  margin-top:40rpx;
+  text-align:center;
+}
+.join{
+    background:#ff504b;
+}
+.unit{
+  margin:40rpx 30rpx;
+  padding: 10rpx;
+  background: #ffe8cf;  
+  border-radius:6rpx;
+  box-shadow: 3rpx 10rpx 8rpx rgba(0,0,0,0.2)
+  
+}
+.list{
+  width:666rpx;
+  height:256rpx;
+  line-height:256rpx;
+  border: 1rpx solid #ff504b;
+  border-radius:6rpx;
+  position:relative;
+  display: flex;
+  justify-content: center; /* 项目位于各行之间留有空白的容器内 */
+  align-items: center;
+}
+.iconPic{
+  position:absolute;
+  top:-20rpx;
+  right:0;
+  width:70rpx;
+  height:76rpx;
+}
+.car-img-box{
+  border-radius: 15rpx;
+  overflow: hidden;
+  width:235rpx;
+  height:160rpx;
+  margin-right:85rpx;
+}
+.car-img{
+  width: 100%;
+  height: 100%;
+}
+.price{
+  color:#997f5d;
+  font-size:28rpx;
+
+}
+.money{
+  color:#997f5d;
+  font-size:54rpx;
+  font-weight:900;
+}
+
+/* 加载更多 */
+.weui-loading {
+  margin: 0 5px;
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-animation: weuiLoading 1s steps(12, end) infinite;
+  animation: weuiLoading 1s steps(12, end) infinite;
+  background: transparent url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAiIGhlaWdodD0iMTIwIiB2aWV3Qm94PSIwIDAgMTAwIDEwMCI+PHBhdGggZmlsbD0ibm9uZSIgZD0iTTAgMGgxMDB2MTAwSDB6Ii8+PHJlY3Qgd2lkdGg9IjciIGhlaWdodD0iMjAiIHg9IjQ2LjUiIHk9IjQwIiBmaWxsPSIjRTlFOUU5IiByeD0iNSIgcnk9IjUiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDAgLTMwKSIvPjxyZWN0IHdpZHRoPSI3IiBoZWlnaHQ9IjIwIiB4PSI0Ni41IiB5PSI0MCIgZmlsbD0iIzk4OTY5NyIgcng9IjUiIHJ5PSI1IiB0cmFuc2Zvcm09InJvdGF0ZSgzMCAxMDUuOTggNjUpIi8+PHJlY3Qgd2lkdGg9IjciIGhlaWdodD0iMjAiIHg9IjQ2LjUiIHk9IjQwIiBmaWxsPSIjOUI5OTlBIiByeD0iNSIgcnk9IjUiIHRyYW5zZm9ybT0icm90YXRlKDYwIDc1Ljk4IDY1KSIvPjxyZWN0IHdpZHRoPSI3IiBoZWlnaHQ9IjIwIiB4PSI0Ni41IiB5PSI0MCIgZmlsbD0iI0EzQTFBMiIgcng9IjUiIHJ5PSI1IiB0cmFuc2Zvcm09InJvdGF0ZSg5MCA2NSA2NSkiLz48cmVjdCB3aWR0aD0iNyIgaGVpZ2h0PSIyMCIgeD0iNDYuNSIgeT0iNDAiIGZpbGw9IiNBQkE5QUEiIHJ4PSI1IiByeT0iNSIgdHJhbnNmb3JtPSJyb3RhdGUoMTIwIDU4LjY2IDY1KSIvPjxyZWN0IHdpZHRoPSI3IiBoZWlnaHQ9IjIwIiB4PSI0Ni41IiB5PSI0MCIgZmlsbD0iI0IyQjJCMiIgcng9IjUiIHJ5PSI1IiB0cmFuc2Zvcm09InJvdGF0ZSgxNTAgNTQuMDIgNjUpIi8+PHJlY3Qgd2lkdGg9IjciIGhlaWdodD0iMjAiIHg9IjQ2LjUiIHk9IjQwIiBmaWxsPSIjQkFCOEI5IiByeD0iNSIgcnk9IjUiIHRyYW5zZm9ybT0icm90YXRlKDE4MCA1MCA2NSkiLz48cmVjdCB3aWR0aD0iNyIgaGVpZ2h0PSIyMCIgeD0iNDYuNSIgeT0iNDAiIGZpbGw9IiNDMkMwQzEiIHJ4PSI1IiByeT0iNSIgdHJhbnNmb3JtPSJyb3RhdGUoLTE1MCA0NS45OCA2NSkiLz48cmVjdCB3aWR0aD0iNyIgaGVpZ2h0PSIyMCIgeD0iNDYuNSIgeT0iNDAiIGZpbGw9IiNDQkNCQ0IiIHJ4PSI1IiByeT0iNSIgdHJhbnNmb3JtPSJyb3RhdGUoLTEyMCA0MS4zNCA2NSkiLz48cmVjdCB3aWR0aD0iNyIgaGVpZ2h0PSIyMCIgeD0iNDYuNSIgeT0iNDAiIGZpbGw9IiNEMkQyRDIiIHJ4PSI1IiByeT0iNSIgdHJhbnNmb3JtPSJyb3RhdGUoLTkwIDM1IDY1KSIvPjxyZWN0IHdpZHRoPSI3IiBoZWlnaHQ9IjIwIiB4PSI0Ni41IiB5PSI0MCIgZmlsbD0iI0RBREFEQSIgcng9IjUiIHJ5PSI1IiB0cmFuc2Zvcm09InJvdGF0ZSgtNjAgMjQuMDIgNjUpIi8+PHJlY3Qgd2lkdGg9IjciIGhlaWdodD0iMjAiIHg9IjQ2LjUiIHk9IjQwIiBmaWxsPSIjRTJFMkUyIiByeD0iNSIgcnk9IjUiIHRyYW5zZm9ybT0icm90YXRlKC0zMCAtNS45OCA2NSkiLz48L3N2Zz4=) no-repeat;
+  background-size: 100%;
+}
+.weui-loadmore {
+  width: 100%;
+  padding: 1.5em;
+  line-height: 1.6em;
+  font-size: 14px;
+  text-align: center;
+  background: #ff504b;
+}
+.weui-loadmore__tips {
+  display: inline-block;
+  vertical-align: middle;
+  color:#fff;
+}
+.hb-wrap{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 50rpx 30rpx 25rpx 30rpx;
+}
+.hb-num{
+  color: #fff;
+}
+.num{
+  font-size: 80rpx;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.rmb-unit{
+  font-size: 40rpx;
+}
+.btn{
+  padding: 0;
+  border:none;
+  outline: none;
+  border-radius: 10rpx;
+  text-align: center;
+  color:#333;
+  font-size: 34rpx;
+  background: #fff;
+}
+.submit-btn{
+  width: 161rpx;
+  height: 70rpx;
+  line-height: 69rpx;
+}
+/*提现弹窗*/
+.pop-box{
+  position: fixed;
+  left:0;
+  right: 0;
+  top:0;
+  bottom:0;
+  z-index: 2;
+  background: rgba(0,0,0,0.5);
+}
+.rule-inner{
+  position: absolute;
+  width:636rpx;
+  background: #ff9920;
+  padding:42rpx 46rpx 48rpx 46rpx;
+  border-radius: 40rpx;
+  left:50%;
+  top:50%;
+  transform: translate(-50%, -50%);color:#fff;
+  }
+.hb-box .rule-inner{
+  text-align: center;
+}
+.rule-title{
+  font-size: 34rpx;
+  margin-bottom: 28rpx;
+  text-align: center;
+}
+.rule-text{font-size: 30rpx;line-height: 1.6;}
+.pop-box-btn{
+  background: #fff;
+  width: 241rpx;
+  height: 72rpx;
+  overflow: hidden;
+  line-height: 72rpx;
+  text-align: center;
+  color: #333;
+  font-size: 34rpx;
+  margin-top: 32rpx;
+}
+.close-pop-btn{
+  margin-top: 44rpx;
+}

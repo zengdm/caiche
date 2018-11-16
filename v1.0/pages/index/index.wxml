@@ -1,0 +1,158 @@
+<!--index.wxml-->
+<import src ="../component/textToast/textToast.wxml" />
+<view class="container" hidden="{{!isLoad}}">
+  <view class="nomarl-activity" wx:if="{{data}}">
+    <view class="header">
+      <view class="cx-img-box">
+        <image class="cx-img" wx:if ="{{question && question.question_img}}" src="{{question && question.question_img}}" data-src="{{question && question.question_img}}" mode="widthFit" bindtap='previewImage'></image>
+      </view>
+      <view class="cx-prize-box">
+        <view class="prize-num-text">本期奖金</view>
+        <view class="prize-num"><text>¥ </text>{{activity_info && activity_info.total_prize}}</view>
+      </view>
+      <!-- <view class="cx-prize-box">
+        <view class="time-down-text" wx:if="{{}}">揭晓倒计时</view>
+        <view class="time-down timeDown" wx:if="{{}}">01:45:24</view>
+      </view> -->
+      <view class='user-money-box' bindtap="userRecords">我的奖金</view>
+      <view class='user-share-box' bindtap='getShareShade'>分享</view>
+      <!-- <view class="user-avatar-box" bindtap="userRecords">
+        
+        <image wx:if="{{!(userInfo && userInfo.avatarUrl)}}" src="http://i1.dd-img.com/assets/image/1517466287-bb81d5d98c3824fd-512w-509h.png" mode='aspectFill' class="avatar"></image>
+        <open-data type="userAvatarUrl" wx:else></open-data>
+      </view> -->
+
+    </view>
+    <view class="main">
+      <view class="cx-text">本期竞猜车型可能是以下一款</view>
+      <view class="cx-list">
+        <block wx:for="{{question && question.options}}" wx:key="index">
+          <button class="cx-item btn {{ chosedId==item.option_id ? 'current-btn' : ''}} {{index==question.options.length-1 ? 'last-btn': ''}} {{(result && result.is_right===0 && result.option_id==item.option_id) || (user_is_right===0 &&  item.is_right_opt===1) ? 'correct-btn': ''}}"
+                  bindtap="choseCx" 
+                  data-id="{{item.option_id}}" 
+                  data-index= "{{index}}" 
+                  data-pserid ="{{item.cxid}}">
+              <text class="btn-text">{{index==0 ? 'A' : (index==1?  'B' : (index==2 ? 'C': (index==3 ? 'D': '')))}} {{ item.option_content}} </text>
+          </button>
+        </block>
+        <!--
+        立即参加竞猜 #ff5c4f
+        至少邀请一名好友才可以继续参加 #ff5c4f
+        继续参与下一期 #ff5c4f
+        回答正确为： 立即领奖
+        -->
+        <!--
+          展示的规则
+          用户已经参加猜车，展示已参加页面
+          本期奖金已经发放完毕，且当期没有结束的情况下，展示奖金发放完毕页面
+          如果是老用户显示再次参加页面
+          如果用户没有参加当期且当前活动未结束正常显示
+        -->
+        <!--{{showResult}}-->
+        <view class="result-box" wx:if="{{!has_prize || (result && (result.is_right===0 || result.is_right===1)) || user_is_right!==''}}">
+          <view class="result-correct" wx:if="{{ result && result.is_right===1}}">
+            <view class="result-title result-text">恭喜您，回答正确</view>
+            <view class="bonus-tip result-text">您瓜分到的奖金为:</view>
+            <view class="bonus-num result-text">{{result.money}}</view>
+          </view>
+          <view class="result-error" wx:if="{{ result && result.is_right===0}}">
+            <view class="result-title result-text">很遗憾，回答错误</view>
+          </view>
+          <!-- user_is_right!='' 说明已参加-->
+          <view class="next-game" wx:if="{{!has_prize || user_is_right!==''}}">
+            <!--如果为已参加，第一个文案为 您已参加了本期竞猜-->
+            <!--如果为已结束，第一个文案为 本期奖金已发放完毕-->
+            <view class="result-text">{{user_is_right!=='' ? "您已参加了本期竞猜": "本期奖金已发放完毕"}}</view>
+            <view class="result-title result-text">下期开始倒计时</view>
+            <view class="result-title result-text timeDown">
+              <text class="number">{{timer.hour}}</text><text class="dot">:</text><text class="number">{{timer.minute}}</text><text class="dot">:</text><text class="number">{{timer.second}}</text>
+            </view>
+          </view>
+        </view>
+        <!--如果为再次参加，没有机会文案显示为 邀请好友，可继续参加-->
+        <!--如果本期活动已结束和本期活动已参加的文案为 随便逛一逛，跳到电动邦微信小程序-->
+        <button class="btn submit-btn" open-type='share' wx:if="{{!can_join && has_prize && !(user_is_right!=='')}}">
+        <!-- <button class="btn submit-btn" open-type='share' wx:if="{{!can_join && has_prize && has_join_before}}"> -->
+          <text class="btn-text" >邀请好友，可继续参加</text>
+        </button> 
+        <block wx:else>
+          <button class="btn submit-btn" bindtap="submitFn" wx:if="{{has_prize && can_join && !result}}">
+            <text class="btn-text">立即参加竞猜</text>
+          </button>
+           <button class="btn submit-btn" bindtap="submitFn" wx:if="{{!has_prize || user_is_right!==''}}">
+            <text class="btn-text">随便逛一逛</text>
+          </button>
+          <button class="btn submit-btn" bindtap="submitFn" wx:if="{{result && result.is_right===0}}">
+            <text class="btn-text">继续参与下一期</text>
+          </button>
+          <form report-submit="true" bindsubmit="formSubmit" >
+            <button class="btn submit-btn" formType="submit" bindtap="submitFn" wx:if="{{result && result.is_right===1}}">
+              <text class="btn-text">立即领奖</text>
+            </button>
+          </form >
+        </block>
+      </view>
+    </view>
+    <!-- <view class="looks">
+      <view class="looks-title">正在围观的好友(5人)</view>
+        <view class="looks-list">
+        <view class="looks-item"><image src="" class="looks-avatar"></image></view>
+        <view class="looks-item"><image src="" class="looks-avatar"></image></view>
+        <view class="looks-item"><image src="" class="looks-avatar"></image></view>
+      </view>
+    </view> -->
+    <!--规则-->
+    <view class="pop-box rule-box" wx:if="{{data && authorizationShow}}" catchtouchmove='poptouchmove'>
+      <view class="rule-inner">
+        <view class="rule-title">看图猜车活动规则</view>
+        <view class="rule-text">1、本活动每天10:00至24:00，每两个小时举行一期，滚动进行；</view>
+        <view class="rule-text">2、每期一张汽车细节照片，并提供4个备选答案；</view>
+        <view class="rule-text">3、竞猜正确的用户随机瓜分奖金，直到奖金瓜分完毕；</view>
+        <view class="rule-text">4、用户首次参加无限制，继续参加新的一期时，需至少邀请一名好友；</view>
+        <view class="rule-text">5、奖金首次可提现0.3元，以后满1元起提现；</view>
+        <form report-submit="true" bindsubmit="formSubmit">
+          <button formType="submit" class="pop-box-btn authorization-btn" open-type="getUserInfo" bindgetuserinfo="getUserInfo">猜猜看</button>
+        </form>
+      </view>
+    </view>
+    <!--授权弹窗-->
+    <authorization-btn show="{{userShow}}" bindchangeStatus="changeStatus"></authorization-btn>
+    <!--领取红包弹窗-->
+    <view class="pop-box hb-box" wx:if="{{hbShow}}" catchtouchmove='poptouchmove'>
+      <view class="rule-inner">
+        <view class="rule-text">请关注“电动邦服务号”公众号，在菜单中点击“猜车红包”领取奖金</view>
+        <button class="pop-box-btn close-pop-btn" bindtap='closeBoxFn'>确定</button>
+      </view>
+    </view>
+  </view>
+  <view class="no-activity" wx:else>
+    <view class="result-title result-text">下期竞猜时间 10:00</view>
+    <button class="btn submit-btn" bindtap="submitFn">
+      <text class="btn-text">随便逛一逛</text>
+    </button>
+  </view>
+  
+  <!-- <get-share-img hidden='{{shareShade}}' bind:getShareImg="getShareImg" inviter_uid="{{share_id}}" inviter_activity_id="{{activity_id}}"></get-share-img> -->
+  <!-- <get-share-img hidden='{{shareShade}}' bind:getShareImg="getShareImg"></get-share-img> -->
+
+</view>
+<template is="toast" data="{{...txtToast}}" />
+<view class='share-shade' hidden='{{shareShade}}'>
+    <view class='shade-shade-box'>
+      <view class='shade-shade-box-top'>
+          <view class='shade-shade-box-friend'>
+            <button open-type="share"></button>
+            <text>发送给朋友</text>
+          </view>
+          
+          <view class='shade-shade-box-save'>
+              <view bindtap='saveImg'></view>
+              <text>分享到朋友圈</text>
+          </view>
+       </view>
+       <view class='shade-shade-box-cancel' bindtap='shareCancel'>取消</view>
+    </view>
+</view>
+<view class="canvasBox">
+  <canvas canvas-id="shareCanvas" style="width:750px;height:1334px;visibility: hidden;"></canvas>
+</view>

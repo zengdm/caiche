@@ -1,0 +1,319 @@
+/**index.wxss**/
+.userinfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.userinfo-avatar {
+  width: 128rpx;
+  height: 128rpx;
+  margin: 20rpx;
+  border-radius: 50%;
+}
+
+.userinfo-nickname {
+  color: #aaa;
+}
+
+.usermotto {
+  margin-top: 200px;
+}
+page,.container{
+  background: #ffe8cf;
+  /* height: 100%; */
+}
+.container{
+  padding-bottom: 30rpx;
+}
+/*上部*/
+.header{
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  background: url(http://i2.dd-img.com/assets/image/1537169586-456042f57fe6dbbe-750w-475h.png) no-repeat top center;
+  background-size: 100%;
+  width: 100%;
+  height: 475rpx;
+  padding-top:120rpx;
+}
+.cx-img-box{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width:240rpx;
+  height: 167.5rpx;
+  border-radius: 12rpx;
+  /* margin:12.5rpx 0 0 47.5rpx; */
+  margin:11.5rpx 0 0 47.5rpx;
+  overflow: hidden;
+}
+.cx-img{width: 100%;height: 100%;}
+.cx-prize-box{
+  flex:1;
+  height: 165rpx;
+  margin-right: 30rpx;
+  /* margin-top: 50rpx; */
+  font-size: 28rpx;
+  color:#fdfbce;
+  text-align: right;
+}
+.prize-num-text{
+  line-height: 10rpx;
+}
+.prize-num,.time-down{font-size: 50rpx;font-weight: bold;}
+.prize-num{
+  font-size: 78rpx;
+}
+.prize-num text{
+  font-size: 40rpx;
+  font-weight: 500
+}
+.user-avatar-box{
+  position: absolute;
+  right: 30rpx;
+  bottom:0;
+  width:101rpx;
+  height: 101rpx;
+  border:2rpx solid #fff;
+  border-radius: 100%;
+  overflow: hidden;
+}
+.user-share-box{
+  position: absolute;
+  right: 30rpx;
+  bottom:92rpx;
+  width:200rpx;
+  height: 70rpx;
+  line-height: 70rpx;
+  color: #ee0a3b;
+  background: #fedf30 url(http://i2.dd-img.com/assets/image/1539764664-ec4a3d8e46086e49-42w-42h.png) no-repeat 29rpx center;
+  background-size: 42rpx;
+  border-radius: 15rpx;
+  box-shadow: 0rpx 6rpx 0rpx #ff8601;
+  padding-left: 88rpx;
+  box-sizing: border-box
+}
+.user-money-box{
+  color: #fdfbce;
+  font-size: 28rpx;
+  position: absolute;
+  right: 30rpx;
+  bottom:200rpx;
+  border-bottom: 1rpx solid #fdfbce;
+}
+.cx-text{
+  margin:20rpx 0 22rpx 30rpx;
+  font-size: 30rpx;
+  color:#997f5d;
+}
+/*竞猜车型*/
+.btn{
+  padding: 0;
+  border:none;
+  outline: none;
+  border-radius: 10rpx;
+  box-shadow: 0 6rpx 0 #ffd289, 0 18rpx 28rpx rgba(253,148,102,.9);
+  /* transition: box-shadow .2s ease-in-out; */
+  margin: 26rpx 30rpx;
+}
+.btn-text{
+  display: block;
+  height: 88rpx;
+  line-height: 88rpx;
+  background: #fbfbfb;
+  font-size:30rpx;
+  color: #7d4408;
+  text-align: left;
+  padding-left: 34rpx;
+} 
+.last-btn{margin-bottom: 66rpx;}
+.submit-btn{margin-top: 40rpx;}
+.submit-btn .btn-text{
+  padding-left: 0;
+  color:#ff5c4f;
+  text-align: center;
+}
+.current-btn{
+  box-shadow: 0 6rpx 0 #eb6c06, 0 18rpx 28rpx rgba(253,148,102,.9);
+}
+.current-btn .btn-text{
+  background: #fe9a20;
+  color: #fff;
+}
+.correct-btn{
+  box-shadow: 0 6rpx 0 #03a452, 0 18rpx 28rpx rgba(253,148,102,.9);
+}
+.correct-btn .btn-text{
+  background: #16d373;
+  color: #fff;
+}
+/*正在围观的好友*/
+/* .looks{
+  padding: 34rpx 13rpx 0 30rpx;
+}
+.looks-title,.cx-text{
+  font-size: 30rpx;
+  color:#997f5d;
+}
+.looks-list{
+  display: flex;
+  align-items: center;
+  padding-top: 23rpx;
+}
+.looks-item{
+  width:101rpx;
+  height:101rpx;
+  border-radius: 100%;
+  border:2rpx solid #fff;
+  margin: 0 17rpx 17rpx 0;
+  overflow: hidden;
+}
+.looks-avatar{width: 100%;height: 100%;} */
+/*规则*/
+.pop-box{
+  position: fixed;
+  left:0;
+  right: 0;
+  top:0;
+  bottom:0;
+  z-index: 2;
+  background: rgba(0,0,0,0.5);
+}
+.rule-inner{
+  position: absolute;
+  width:636rpx;
+  background: #ff9920;
+  padding:42rpx 46rpx 48rpx 46rpx;
+  border-radius: 40rpx;
+  left:50%;
+  top:50%;
+  transform: translate(-50%, -50%);color:#fff;
+  }
+.hb-box .rule-inner{
+  text-align: center;
+}
+.rule-title{
+  font-size: 34rpx;
+  margin-bottom: 28rpx;
+  text-align: center;
+}
+.rule-text{font-size: 30rpx;line-height: 1.6;}
+.pop-box-btn{
+  background: #fff;
+  width: 241rpx;
+  height: 72rpx;
+  overflow: hidden;
+  line-height: 72rpx;
+  text-align: center;
+  color: #333;
+  font-size: 34rpx;
+  margin-top: 32rpx;
+}
+.close-pop-btn{
+  margin-top: 44rpx;
+}
+/*竞猜结果*/
+.result-box{
+  margin-top:-24rpx;
+}
+.result-text{
+  font-size: 30rpx;
+  color:#997f5d;
+  text-align: center;
+  line-height: 56rpx;
+}
+.result-title{
+  line-height: 88rpx;
+  font-weight: bold;
+  font-size: 50rpx;
+}
+.timeDown.result-title{
+  font-size: 56rpx;
+  margin-top: -15rpx;
+}
+.timeDown .number{
+  display: inline-block;width: 68rpx;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.bonus-num{
+  font-size: 60rpx;
+  line-height: 78rpx;
+  font-weight:bold;
+}
+.no-activity{
+  background: #ffe8cf url(http://i2.dd-img.com/assets/image/1537497303-66bed80c5b4475b3-750w-716h.jpg) no-repeat top center;
+  background-size: 100%;
+  padding-top:716rpx;
+}
+.avatar{
+  width:100%;
+  height: 100%;
+}
+.dot{
+  font-family: Arial, Helvetica, sans-serif;
+  vertical-align:baseline;
+}
+.share-shade{
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999999;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.4);
+}
+.shade-shade-box{
+    width: 528rpx;
+    /* height: 290rpx; */
+    background: #ff983d;
+    border-radius: 16rpx;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -264rpx;
+    margin-top: -145rpx;
+    overflow: hidden;
+}
+.shade-shade-box-top{
+  padding: 0 54rpx ;
+  box-sizing: border-box;
+}
+.shade-shade-box-friend,.shade-shade-box-save{
+  display: inline-block;
+  text-align: center;
+  margin: 34rpx 44rpx;
+  font-size: 22rpx;
+  color: #fff;
+}
+.shade-shade-box-friend button,.shade-shade-box-save view{
+  width: 113rpx;
+  height: 113rpx;
+  border-radius: 16rpx;
+  margin: 0 auto 12rpx;
+}
+.shade-shade-box-friend button{
+  background: #fff url(http://i2.dd-img.com/assets/image/1539768199-7de84d0f43a58bad-41w-52h.png) no-repeat center;
+  background-size: 42rpx;
+}
+.shade-shade-box-save view{
+ background: #fff url(http://i2.dd-img.com/assets/image/1539768199-6580c7d50e9267cb-52w-52h.png) no-repeat center;
+  background-size: 52rpx;
+}
+.shade-shade-box-cancel{
+  text-align: center;
+  background: #fedf30;
+  height: 80rpx;
+  line-height: 80rpx;
+  font-size: 30rpx;
+  color: #6f0018;
+}
+.canvasBox{
+  position: fixed;
+  top:-99999px;
+  /* top:0px; */
+  z-index: 3;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.4);
+}

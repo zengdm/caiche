@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "猜车赢红包",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "authorization-btn": "/pages/component/authorization/userInfo"
+  }
+}

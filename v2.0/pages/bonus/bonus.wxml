@@ -1,0 +1,38 @@
+<!--pages/bonus/bonus.wxml-->
+<view class="main">
+  <view class='main-grade'><text>{{userData.total_balance}}</text>元</view>
+  <view class='main-top'>{{userData.join_times}}</view>
+  <view class='main-left'>{{userData.right_times}}</view>
+  <view class='main-right'>{{userData.wrong_times}}</view>
+  <view class='main-bottom'>{{userData.total_rank}}</view>
+  <!--  -->
+  <view class='main-poster' bindtap='saveImgAction'>生成海报</view>
+  <view class='main-poster main-deposit' bindtap="submitFn">提现</view>
+  <view class='head'>
+      <image src='{{headerImg}}'></image>
+  </view>
+</view>
+<view class="canvasBox">
+  <canvas canvas-id="shareCanvas" style="width:750px;height:1334px;"></canvas>
+</view>
+<!--授权弹窗-->
+<authorization-btn show="{{userShow}}" bindchangeStatus="changeStatus"></authorization-btn>
+<view class="pop-box hb-box" wx:if="{{hbShow}}" catchtouchmove='poptouchmove'>
+  <view class="rule-inner">
+    <view class="rule-text">请关注“电动邦服务号”公众号，在菜单中点击“领奖”领取奖金</view>
+    <button class="pop-box-btn close-pop-btn" bindtap='closeBoxFn'>确定</button>
+  </view>
+</view>
+<view class="pop-box modal-panel" wx:if="{{showModal}}" catchtouchmove='poptouchmove'>
+  <view class="shadeBox"></view>
+  <view class="modal-main">
+    <!-- <view class="title"></view> -->
+    <view class="subtitle">{{modelSubTit}}</view>
+    <view class="btns">
+      <button class="modal-btn btn-cancel" bindtap="btnCancel">取消</button>
+      <button class="modal-btn btn-confirm" bindtap="openSetting">确定</button>
+    </view>
+  </view>
+</view>
+<import src ="../component/textToast/textToast.wxml" />
+<template is="toast" data="{{...txtToast}}" />

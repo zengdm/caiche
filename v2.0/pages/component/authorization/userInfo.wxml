@@ -1,0 +1,7 @@
+<view  hidden='{{!show}}' catchtouchmove="poptouchmove">
+  <view class='userBox'></view>
+  <view class='new-box'>
+    <image mode='widthFix' src='https://i1.dd-img.com/assets/image/1529666900-ec319cadbfbac6fb-240w-240h.gif'></image>
+    <button class='btnBox-btn' bindgetuserinfo='getUserInfo' open-type='getUserInfo'>微信快速登录</button>
+  </view>
+</view>

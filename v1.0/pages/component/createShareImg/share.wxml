@@ -1,0 +1,4 @@
+
+<view class="canvasBox">
+  <canvas canvas-id="shareCanvas" style="width:375px;height:667px;visibility: hidden;"></canvas>
+</view>

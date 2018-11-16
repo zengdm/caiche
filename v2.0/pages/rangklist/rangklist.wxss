@@ -1,0 +1,96 @@
+/* pages/rangklist/rangklist.wxss */
+page{
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background: #140032 url(https://i2.dd-img.com/assets/image/1540522650-6f34405b51898f85-750w-1206h.jpg) no-repeat;
+  background-size: 750rpx;
+  font-size: 0;
+}
+.main-share{
+  width: 750rpx;
+  height: 123rpx;
+  background:url(https://i2.dd-img.com/assets/image/1540525253-06f1fb7bf48de0c6-750w-123h.png) no-repeat;
+  background-size: 750rpx;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+}
+.main-share button{
+  width: 442rpx;
+  height: 100rpx;
+  line-height: 100rpx;
+  border-radius: 100rpx;
+  background: #140032;
+  color: #ffd833;
+  border: 2rpx solid #fff;
+  font-size: 30rpx;
+}
+.main-list{
+  padding: 0 42rpx 0 30rpx;
+  box-sizing: border-box;
+  padding-bottom: 140rpx;
+  padding-top: 210rpx;
+}
+.main-list-item{
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    align-items: center;
+    font-size: 24rpx;
+    color: #fff;
+    margin-bottom: 28rpx;
+}
+.main-list-item.bg{
+  width: 668rpx;
+  height: 130rpx;
+  background: url(https://i2.dd-img.com/assets/image/1540546232-ca4cc7fe0ee4e4a7-667w-126h.png) no-repeat;
+  background-size: 668rpx;
+  margin-left: 18rpx;
+}
+.main-list-item.bg.bg2{
+  background: url(https://i2.dd-img.com/assets/image/1540546232-17002e45473a83cc-667w-126h.png) no-repeat;
+  background-size: 668rpx;
+}
+.main-list-item.bg.bg3{
+  background: url(https://i2.dd-img.com/assets/image/1540546232-7cb82f4c0c5af01c-667w-126h.png) no-repeat;
+  background-size: 668rpx;
+}
+.main-list-item.bg image{
+  width: 98rpx;
+  height: 98rpx;
+  margin-left: 2rpx;
+  margin-top: -2rpx;
+}
+.main-list-item.bg .main-list-item-name{
+  font-size: 28rpx;
+}
+.main-list-item-price{
+  height:126rpx;
+  line-height:126rpx;
+  padding-right: 40rpx;
+  font-weight: 600;
+  font-size: 30rpx;
+  color: #fff;
+}
+
+
+.main-list-item image{
+  width: 50rpx;
+  height: 50rpx;
+  border-radius: 50%;
+  margin-right: 26rpx;
+  margin-left: 26rpx;
+}
+.main-list-item>text{
+  min-width: 70rpx;
+  height: 56rpx;
+  text-align: center;
+  display: inline-block;
+  color: #fff;
+  font-size: 40rpx;
+
+}
+.main-list-item-name{
+  flex: 1;
+}

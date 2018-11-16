@@ -1,0 +1,18 @@
+<!--pages/rangklist/rangklist.wxml-->
+<view class="main">
+  <view class='main-list'>
+    <block  wx:if="{{list.length>0}}" wx:for="{{list}}" wx:for-item="item" wx:for-index="index" wx:key="index">
+      <view class='main-list-item {{index===0 ? "bg bg1" : (index===1?"bg bg2" : (index===2 ? "bg bg3" : ""))}}'>
+        <text>{{ index<=2 ? "" : index+1 }}</text>
+        <image src="{{item.avatar || defaultImg }}"></image>
+        <view class="main-list-item-name">{{item.nickname}}</view>
+        <view class="{{index<=2 ? 'main-list-item-price':''}}">{{item.total_balance}}元</view>
+      </view>
+    </block>
+  </view>
+  <view class='main-share'>
+    <button open-type="share">分享到群，奖励1元</button>
+  </view>
+</view>
+<import src ="../component/textToast/textToast.wxml" />
+<template is="toast" data="{{...txtToast}}" />

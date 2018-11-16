@@ -1,0 +1,6 @@
+<template name="toast">
+<!--hidden="{{visible}}"-->
+  <view class="weui-toast weui-toast-text" wx-if="{{!visible}}" >
+      <view class="weui-toast__content">{{text}}</view>
+  </view>
+</template>

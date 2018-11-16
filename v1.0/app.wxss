@@ -1,0 +1,8 @@
+/**app.wxss**/
+view, text, image{  box-sizing: border-box;}
+.container,page{min-height: 100%;overflow: auto;}
+button,button::after{
+  border: none; 
+  outline: none;
+}
+@import "/pages/component/textToast/textToast.wxss";

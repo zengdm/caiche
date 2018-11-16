@@ -1,0 +1,56 @@
+<!--index.wxml-->
+<import src ="../component/textToast/textToast.wxml" />
+<!-- catchtouchmove="moveFn" -->
+<view class="container">
+  <view class="nomarl-activity">
+    <view class="header">
+      <view class="cx-img-box">
+        <image class="cx-img" wx:if ="{{img}}" src="{{img}}" data-src="{{img}}" mode="widthFit" bindtap='previewImage'></image>
+      </view>
+      <view class="cx-prize-box">
+        <view class="prize-num-text">本期奖金</view>
+        <view class="prize-num">{{total_prize}}</view>
+      </view>
+    </view>
+    <view class="main">
+      <view class="cx-text">本期竞猜车型可能是以下一款</view>
+      <view class="cx-list">
+        <block wx:for="{{options}}" wx:key="index">
+          <button class="cx-item btn {{(is_right===1 && item.is_right_opt===1) || (is_right===0 && item.is_choose===1) ? 'current-btn' : ''}} {{index==options.length-1 ? 'last-btn': ''}} {{is_right===0 && item.is_choose===0 && item.is_right_opt===1 ? 'correct-btn': ''}}"
+                  bindtap="choseCx" 
+                  data-id="{{item.option_id}}" 
+                  data-index= "{{index}}" 
+                  data-pserid ="{{item.cxid}}">
+              <text class="btn-text">{{index==0 ? 'A' : (index==1?  'B' : (index==2 ? 'C': (index==3 ? 'D': '')))}} {{ item.option_content}} </text>
+          </button>
+        </block>
+        <view class="result-box">
+          <view class="result-correct" wx:if="{{is_right===1}}">
+            <view class="result-title result-text">恭喜您，回答正确</view>
+            <view class="bonus-tip result-text">您瓜分到的奖金为:</view>
+            <view class="bonus-num result-text">{{prize_amount}}</view>
+          </view>
+          <view class="result-error" wx:if="{{ is_right===0}}">
+            <view class="result-title result-text">很遗憾，回答错误</view>
+          </view>
+        </view>
+        <!--如果为再次参加 ，没有机会文案显示为 至少邀请一名好友才可以继续参加-->
+        <!--如果已结束文案和已参加为 随便逛一逛，跳到电动邦微信小程序-->
+        <button class="btn submit-btn" bindtap="submitFn">
+          <text class="btn-text" wx:if="{{is_right===0}}">继续参与下一期</text>
+          <text class="btn-text" wx:if="{{is_right===1}}">立即领奖</text>
+        </button>
+      </view>
+    </view>
+    <!--授权弹窗-->
+    <authorization-btn show="{{userShow}}"></authorization-btn>
+    <!--领取红包弹窗-->
+    <view class="pop-box hb-box" wx:if="{{hbShow}}" catchtouchmove='poptouchmove'>
+      <view class="rule-inner">
+        <view class="rule-text">请关注“电动邦服务号”公众号，在菜单中点击“猜车红包”领取奖金</view>
+        <button class="pop-box-btn close-pop-btn" bindtap='closeBoxFn'>确定</button>
+      </view>
+    </view>
+  </view>
+  <template is="toast" data="{{...txtToast}}" />
+</view>
